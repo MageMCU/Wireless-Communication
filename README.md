@@ -7,3 +7,4 @@
 ## Espressif ESP32
 
 ## Nordic nRF24
+- Nordic Semiconductor designs and produces SoC, SiP, and connectivity solutions for the ISM bands at 5 GHz, 2.4 GHz and 868/915 MHz bands. The products operate on low power, enabling wireless and IoT applications to use little battery and run on harvested energy. Popular products include the nRF24L01+ and the nRF24LE1, both using the lightweight and proprietary "Enhanced ShockBurst" protocol stack in 2.4 GHz ISM band. The nRF24L01+ is a simple transceiver with some logic to implement the protocol stack and is connected to a microcontroller via an SPI bus, while the nRF24LE1 can be seen as an nRF24L01 and a microcontroller in the same chip.
