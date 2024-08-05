@@ -15,7 +15,8 @@
   - MCU-2: Radio Client & I2C Master - Intermediary between MCU-1 & MCU-3
   - MCU-3: I2C Slave - Controller & Motors
 - Timing Strategy is at Radios 100ms & I2C 50ms (this could be tweaked even further - maybe) The motors responded quite nicely.
-- Could NOT get the amplified nRF24L01 radios to work... Could not find the FCC ID report for these either... I recommend the inexpensive radios *about $1 each from Amazon* having the FCC ID 2A63C-NRF24L01 report at least for now until the user can get their project up and running.
+- Could NOT get the amplified nRF24L01 radios to work... Could not find the FCC ID report for these either...
+- It's recommended that the inexpensive radios *about $1 each from Amazon* having the FCC ID 2A63C-NRF24L01 report at least for now until the user can get their project up and running.
 
 ## Digi XBee-PRO 900HP DigiMesh Kit (US/Canada) XKB9-DMT-UHP
 - Preliminary Test (private for now)
