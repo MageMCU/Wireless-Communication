@@ -2,7 +2,7 @@
 - After six months of review, I have decided to start with these device(s). It is my hope to complete this project by the end of 2024. There were other radios under review but decided against using them because the IDE and code was beyond a beginners capability... Maybe later...
 
 ## Testing Platform
-- This MCU chip **Atmega328P** is well known and the price is affordable as well as most of the robotic hardware that is described here. The Arduino Uno board comes with a removable MCU.
+- The MCU chip **Atmega328P** is well known and the price is affordable as well as most of the robotic hardware that is described here. The Arduino Uno board comes with a removable MCU.
 - **PlatformIO** is a cross-platform, cross-architecture, multiple framework, professional tool for embedded systems engineers and for software developers who write applications for embedded products. 
 - **Visual Studio Code** is a streamlined code editor and it runs on macOS, Linux, and Windows. The best thing about VSCode, it is free.
   
