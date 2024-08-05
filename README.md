@@ -9,4 +9,5 @@
   - MCU-1: Radio Server - Joystick Input
   - MCU-2: Radio Client & I2C Master - Intermediary between MCU-1 & MCU-3
   - MCU-3: I2C Slave - Controller & Motors
+- Timing Strategy is at Radios 100ms & I2C 50ms (this could be tweaked even further...) The motors responded quite nicely.
 
