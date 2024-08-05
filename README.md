@@ -9,7 +9,7 @@
 ## Nordic nRF24L01 - Radio Transceiver 
 - Preliminary Test [Study](https://drive.google.com/file/d/1nfAlSv4Ejyql8hRYMXsEH_Gaa7wh_Z5n)
 - RadioHead version 1.22.1 by Mike McCauley [Arduino Reference Libraries](https://www.arduino.cc/reference/en/libraries/radiohead/)
-- FCC ID [2A63C-NRF24L01](https://fcc.report/FCC-ID/2A63C-NRF24L01) report
+- FCC ID [2A63C-NRF24L01](https://fcc.report/FCC-ID/2A63C-NRF24L01) report (Shenzhen Danaotiankong Technology Co., Ltd) for MakerFocus NRF24L01+2.4GHz Wire Less RF Transceiver Module
 - Note: Finished wiring the motor controller & motors
   - MCU-1: Radio Server - Joystick Input
   - MCU-2: Radio Client & I2C Master - Intermediary between MCU-1 & MCU-3
