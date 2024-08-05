@@ -18,4 +18,4 @@
 - Could NOT get the amplified nRF24L01 radios to work... Could not find the FCC ID report for these either... I recommend the inexpensive radios with the FCC ID 2A63C-NRF24L01 report (Amazon) for now until the user can get their project up and running.
 
 ## Digi XBee-PRO 900HP DigiMesh Kit (US/Canada) XKB9-DMT-UHP
-- Not yet tested
+- Preliminary Test (private for now)
