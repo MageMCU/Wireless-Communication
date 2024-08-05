@@ -130,7 +130,7 @@ namespace csjc
         return (y2 - y1) * (x - x1) / (x2 - x1) + y1;
     }
 
-    // BUG FIX 20240722 jc
+    // BUG FIX 20240805 jc
     template <typename real>
     real ABS_REAL(real val)
     {
