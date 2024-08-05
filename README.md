@@ -20,3 +20,9 @@
 
 ## Digi XBee-PRO 900HP DigiMesh Kit (US/Canada) XKB9-DMT-UHP
 - Preliminary Test (private for now)
+
+## In Development
+- 20240804 - First push
+
+## Disclaimer and Terms
+- Please read
