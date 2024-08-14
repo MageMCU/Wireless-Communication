@@ -7,7 +7,8 @@
 - **Visual Studio Code** is a streamlined code editor and it runs on macOS, Linux, and Windows. The best thing about VSCode, it is free.
   
 ## MakerFocus NRF24L01+ 2.4GHz Wireless Transceiver 
-- Preliminary Test [Study nRF24L01+](https://drive.google.com/file/d/1nfAlSv4Ejyql8hRYMXsEH_Gaa7wh_Z5n)
+- Preliminary Test [Study nRF24L01+]([)](https://drive.google.com/file/d/16c0QiXB1juv79E4-AEpoiPuyevjmZlZL)
+  - Updated the study with the Motor Movement Checklist after updating the Joystick Uno L298N repository.
 - RadioHead version 1.22.1 by Mike McCauley [Arduino Reference Libraries](https://www.arduino.cc/reference/en/libraries/radiohead/)
 - FCC ID [2A63C-NRF24L01](https://fcc.report/FCC-ID/2A63C-NRF24L01) report (Shenzhen Danaotiankong Technology Co., Ltd) for MakerFocus NRF24L01+2.4GHz Wire Less RF Transceiver Module
 - Note: Finished wiring the motor controller & motors
