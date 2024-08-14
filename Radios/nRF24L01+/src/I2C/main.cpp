@@ -23,6 +23,7 @@
 #include <SPI.h>
 
 #include "Common.h"
+#include "Headers.h"
 
 // Arduino Uno as Master communicates with another Arduino as Slave.
 // ----------------------------------------------------
@@ -45,7 +46,7 @@ BusI2C busI2C;
 Common data;
 uint8_t i2cRX[COMM_MESSAGE_SIZE];
 //
-L298N motorsL298N;
+L298N motors;
 LinearMap<float> mapInput;
 LinearMap<float> mapOutput;
 TypeConv typeConv;
@@ -53,69 +54,43 @@ Timer timerDebug;
 
 void setup()
 {
-    // #ifdef DEBUG_CODE
+#ifdef DEBUG_SERIAL
     Serial.begin(9600);
     while (!Serial)
         ;
     Serial.println("I2C - Serial 9600 baudrate");
-    // #endif
+#endif
 
     // Assign BusI2C Object
     busI2C = BusI2C();
     // Wire.BEGIN: Include Timeout
     busI2C.Begin(I2C_SLAVE_ADDR_0x16, I2C_TIMEOUT_uS, true);
 
-    // Temp Variables
+    // Arduino PINS
     int8_t ENA = 5;
     int8_t IN1 = 6;
     int8_t IN2 = 7;
     int8_t IN3 = 8;
     int8_t IN4 = 9;
     int8_t ENB = 10;
-    int8_t LeftMotorPWM = ENB;
-    // EASY METHOD (See article 1009 L298N Supplemental)
-    // Can switch variable pairs IN1 & IN2
-    // for either Left Motor A & B or Right Motor A & B
-    // variables and also their order arrangement for
-    // either A or B; and the same fore variable pairs
-    // IN3 & IN4...
-    // Finally try switching ENB & ENA (???)
-    int8_t LeftMotorA = IN3;
-    int8_t LeftMotorB = IN4;
-    int8_t RightMotorA = IN1;
-    int8_t RightMotorB = IN2;
-    int8_t RightMotorPWM = ENA;
+    // L298N PINS
+    int8_t LeftEN = ENA;
+    int8_t LeftA = IN1;
+    int8_t LeftB = IN2;
+    int8_t RightA = IN3;
+    int8_t RightB = IN4;
+    int8_t RightEN = ENB;
 
-    // Assign L298N Object
-    motorsL298N = L298N(LeftMotorPWM, LeftMotorA, LeftMotorB,
-                        RightMotorA, RightMotorB, RightMotorPWM);
-    motorsL298N.SetupPinsL298N();
+    // L298N Constructor
+    motors = L298N(LeftEN, LeftA, LeftB,
+                   RightA, RightB, RightEN);
+    // Initiate L298N Pins
+    motors.PinsL298N();
+    // See Joystick-Uno-L298N in how to use....
+    motors.Bits(BitsL298N::bits_1111);
     //
     typeConv = csjc::TypeConv();
 }
-
-// All debug statements occur here in the main.cpp file
-// #ifdef DEBUG_CODE
-template <typename T1, typename T2, typename T3>
-void Debug(String msg, T1 a, T2 b, T3 c, bool cFlag = false)
-{
-    Serial.print(msg);
-    Serial.print(" a: ");
-    Serial.print(a);
-    Serial.print(" b: ");
-
-    if (cFlag)
-    {
-        Serial.print(b);
-        Serial.print(" c: ");
-        Serial.println(c);
-    }
-    else
-    {
-        Serial.println(b);
-    }
-}
-// #endif
 
 // Callback
 void SlaveReceiveI2C(int numberBytes)
@@ -132,23 +107,21 @@ void SlaveReceiveI2C(int numberBytes)
         data.dataX = typeConv.BytesToWord(message[3], message[4]);
         data.dataY = typeConv.BytesToWord(message[5], message[6]);
 
-        // #ifdef DEBUG_CODE
+#ifdef DEBUG_I2C
         Serial.print("I2C-MCU-3: 0x");
-        Serial.print(data.i2cAddress, HEX);
+        Serial.println(data.i2cAddress, HEX);
         if (data.buttonState)
         {
-            Serial.print(" But-ON");
-            Debug("-Motors:", data.dataX, data.dataY, 0);
+            Debug("-Motors:", data.dataX, data.dataY);
         }
-        else
-            Serial.println(" But-OFF");
-        // #endif
+#endif
+
     }
 }
 
 void loop()
 {
-    if (timerDebug.isTimer(BUTTON_TIMER_mS))
+    if (timerDebug.isTimer(I2C_TIMER_mS))
     {
         // I2C RECEIVE (Uses Interrupt call-back)
         Wire.onReceive(SlaveReceiveI2C);
@@ -157,18 +130,18 @@ void loop()
         if (data.buttonState)
         {
             // L298N
-            motorsL298N.updateL298N(data.dataX, data.dataY);
-#ifdef DEBUG_CODE
+            motors.UpdateL298N(data.dataX, data.dataY, true);
+#ifdef DEBUG_I2C
             // Debug - State Motor ON
-            Serial.print("But-ON: ");
+            Serial.println("But-ON: ");
 #endif
         }
         else
         {
-            motorsL298N.PowerDownL298N();
-#ifdef DEBUG_CODE
+            motors.PowerDownL298N();
+#ifdef DEBUG_I2C
             // Debug - State Motor ON
-            Serial.print("But-OFF: ");
+            Serial.println("But-OFF: ");
 #endif
         }
         busI2C.ClearTimeout();

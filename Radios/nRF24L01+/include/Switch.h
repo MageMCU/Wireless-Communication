@@ -2,8 +2,8 @@
 // Carpenter Software
 // File: Class Switch.h
 // Github: MageMCU
-// Repository: Wireless Communication
-// Folder: nRF24L01
+// Repository: Joystick-UNO-L298N
+// Folder: Code
 //
 // By Jesse Carpenter (carpentersoftware.com)
 //
@@ -15,12 +15,10 @@
 // MIT LICENSE
 //
 
-#include <Arduino.h>
-
 #ifndef Switch_h
 #define Switch_h
 
-#define DEBOUNCE_TIME 75
+#include <Arduino.h>
 
 // Carpenter Software - Jesse Carpenter
 namespace csjc
@@ -90,7 +88,7 @@ namespace csjc
     void Switch::m_data()
     {
         m_switchPin = 2;
-        m_ledPin = 12;
+        m_ledPin = 13;
     }
 
     // Private Method

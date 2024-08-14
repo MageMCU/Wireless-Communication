@@ -26,6 +26,7 @@
 #include <SPI.h>
 
 #include "Common.h"
+#include "Headers.h"
 
 using namespace csjc;
 
@@ -47,13 +48,18 @@ TypeConv typeConv;
 
 void setup()
 {
+#ifdef DEBUG_SERIAL
     Serial.begin(9600);
     while (!Serial)
         ;
     Serial.println("RADIO CLIENT & I2C - Serial 9600 baudrate");
+#endif
 
     if (!manager.init())
-        Serial.println("init failed");
+#ifdef DEBUG_CLIENT
+        Serial.println("init failed")
+#endif
+            ;
     // Defaults after init are 2.402 GHz (channel 2), 2Mbps, 0dBm
     // Default is 200ms
     manager.setTimeout(RADIO_TIMEOUT_mS);
@@ -67,29 +73,6 @@ void setup()
     //
     typeConv = TypeConv();
 }
-
-// #ifdef DEBUG_CODE
-// All debug statements occur here in the main.cpp file
-template <typename T1, typename T2, typename T3>
-void Debug(String msg, T1 a, T2 b, T3 c, bool cFlag = false)
-{
-    Serial.print(msg);
-    Serial.print(" a: ");
-    Serial.print(a);
-    Serial.print(" b: ");
-
-    if (cFlag)
-    {
-        Serial.print(b);
-        Serial.print(" c: ");
-        Serial.println(c);
-    }
-    else
-    {
-        Serial.println(b);
-    }
-}
-// #endif
 
 void i2cToSlaveTransmitRadioRX()
 {
@@ -113,22 +96,22 @@ void RadioRXData()
     int16_t X = (int16_t)typeConv.BytesToWord(radioRX[3], radioRX[4]);
     int16_t Y = (int16_t)typeConv.BytesToWord(radioRX[5], radioRX[6]);
 
-    // #ifdef DEBUG_CODE
+#ifdef DEBUG_CLIENT
     Serial.print("I2C-MCU-2: 0x");
     Serial.print(i2cTX[0], HEX);
     if (i2cTX[1])
     {
         Serial.print(" But-ON");
-        Debug("-Motors:", X, Y, 0);
+        Debug("-Motors:", X, Y);
     }
     else
         Serial.println(" But-OFF");
-    // #endif
+#endif
 }
 
 void checkTransmissions()
 {
-#ifdef DEBUG_CODE
+#ifdef DEBUG_CLIENT
     Serial.print("Client: TX-CNT: ");
     Serial.println(manager.retransmissions());
 #endif
@@ -141,13 +124,14 @@ void checkTransmissions()
 bool updateRadio()
 {
     bool flag = false;
-    // Serial.println("updateRadio()");
 
     // Send a message to manager_server
     if (manager.sendtoWait(radioTX, sizeof(radioTX), RADIO_SERVER_ADDRESS))
     {
-        // Serial.println("Sending to nrf24_reliable_datagram_server");
-        //
+#ifdef DEBUG_CLIENT
+        Serial.println("Sending to nrf24_reliable_datagram_server");
+#endif
+        
         checkTransmissions();
 
         // Now wait for a reply from the server
@@ -155,30 +139,36 @@ bool updateRadio()
         uint8_t from;
         if (manager.recvfromAckTimeout(radioRX, &len, 2000, &from))
         {
+#ifdef DEBUG_CLIENT
             Serial.print("RX-reply from : 0x");
             Serial.print(from, HEX);
 
             Serial.print(":len: ");
             Serial.println(len);
+#endif
 
             RadioRXData();
 
             flag = true;
         }
-
         else
         {
-            // Serial.println("No reply, is nrf24_reliable_datagram_server running?");
+#ifdef DEBUG_CLIENT
+            Serial.println("No reply, is nrf24_reliable_datagram_server running?");
+#endif
         }
     }
-    // else
-        // Serial.println("sendtoWait failed");
+    else
+    {
+#ifdef DEBUG_CLIENT
+        Serial.println("sendtoWait failed");
+#endif
+    }
+    // Best to use a timer if OTHER functions need processing
+    delay(RADIO_DELAY_mS);
+    // See Loop()
 
-        // Best to use a timer if OTHER functions need processing
-        delay(RADIO_DELAY_mS);
-        // See Loop()
-
-        return flag;
+    return flag;
 }
 
 void loop()

@@ -2,8 +2,8 @@
 // Carpenter Software
 // File: Class Vector3.h
 // Github: MageMCU
-// Repository: Wireless Communication
-// Folder: nRF24L01
+// Repository: Joystick-UNO-L298N
+// Folder: Code
 //
 // By Jesse Carpenter (carpentersoftware.com)
 //
@@ -15,10 +15,10 @@
 // MIT LICENSE
 //
 
-#include "Arduino.h"
-
 #ifndef Numerics_Vector3_h
 #define Numerics_Vector3_h
+
+#include "Arduino.h"
 
 // Carpenter Software - Jesse Carpenter
 namespace csjc
@@ -221,8 +221,8 @@ namespace csjc
         // Angle between 3D vecotrs
         Vector3<real> u = GetVector();
         // ref: [ELA] by Shields, 1980. p.213.
-        // The returned value is in the range [0, pi] 
-        // radians. A domain error occurs for arguments 
+        // The returned value is in the range [0, pi]
+        // radians. A domain error occurs for arguments
         // not in the range [-1, +1]. Therefore the vectors
         // must be normalized...
         return acos((real)(u.Normalize() * v.Normalize()));

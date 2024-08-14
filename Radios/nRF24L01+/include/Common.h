@@ -18,20 +18,6 @@
 #ifndef Common_h
 #define Common_h
 
-#include <Arduino.h>
-
-#include "Bitwise.h"
-#include "BusI2C.h"
-#include "Button.h"
-#include "TypeConv.h"
-#include "Joystick.h"
-#include "L298N.h"
-#include "LinearMap.h"
-#include "MiscMath.h"
-#include "Switch.h"
-#include "Timer.h"
-#include "Vector3.h"
-
 // Communications
 // Radio NRF24L01 & I2C
 #define RADIO_CLIENT_ADDRESS 1
@@ -45,7 +31,7 @@
 
 // Comment-out "// #define RUN_WITH_DEBUG_CODE"s
 // to remove Serial Debugging
-// #define RUN_WITH_DEBUG_CODE
+#define RUN_WITH_DEBUG_CODE
 // ------------------------------------------------------
 // ------------------------------------------------------
 // DO NOT TOUCH - USE #define above, not its condition.
@@ -53,19 +39,33 @@
 // ------------------------------------------------------
 #ifdef RUN_WITH_DEBUG_CODE
 // ------------------------------------------------------
-#define DEBUG_CODE
+// #define DEBUG_SERVER
+// #define DEBUG_CLIENT
+// #define DEBUG_I2C
+#define DEBUG_JOYSTICK
+#define DEBUG_L298N
+#define DEBUG_SERIAL
 #define RADIO_DELAY_mS 1000
 #define RADIO_TIMEOUT_mS 200
 #define RADIO_TRIES 3
-#define BUTTON_TIMER_mS 1000
+#define JOYSTICK_TIMER_mS 1000
+#define I2C_TIMER_mS 1000
 #else
 // I played with the timing but
 // it could have been tweeked 
 // even more...
-#define RADIO_DELAY_mS 100
-#define RADIO_TIMEOUT_mS 75
+#define DEBUG_SERVER
+#define DEBUG_CLIENT
+#define DEBUG_I2C
+#define DEBUG_JOYSTICK
+#define DEBUG_L298N
+#define DEBUG_SERIAL
+//
+#define RADIO_DELAY_mS 250
+#define RADIO_TIMEOUT_mS 100
 #define RADIO_TRIES 2
-#define BUTTON_TIMER_mS 100
+#define JOYSTICK_TIMER_mS 250
+#define I2C_TIMER_mS 250
 #endif // debug
 // ------------------------------------------------------
 // ------------------------------------------------------

@@ -2,8 +2,8 @@
 // Carpenter Software
 // File: Class TypeConv.h
 // Github: MageMCU
-// Repository: Wireless Communication
-// Folder: nRF24L01
+// Repository: Joystick-UNO-L298N
+// Folder: Code
 //
 // By Jesse Carpenter (carpentersoftware.com)
 //
@@ -15,10 +15,10 @@
 // MIT LICENSE
 //
 
-#include <Arduino.h>
-
 #ifndef Type_Conversion_h
 #define Type_Conversion_h
+
+#include <Arduino.h>
 
 // Carpenter Software - Jesse Carpenter
 namespace csjc

@@ -1,9 +1,9 @@
 //
 // Carpenter Software
-// File: Class BusI2C.h (requries BusI2C.cpp file)
+// File: Class BusI2C.h (requries BusI2C.cpp file - src/DEP/ folder)
 // Github: MageMCU
-// Repository: Wireless Communication
-// Folder: nRF24L01
+// Repository: Joystick-UNO-L298N
+// Folder: Code
 //
 // By Jesse Carpenter (carpentersoftware.com)
 //
@@ -15,11 +15,11 @@
 // MIT LICENSE
 //
 
-#include <Arduino.h>
-#include <Wire.h>
-
 #ifndef BUS_I2C_h
 #define BUS_I2C_h
+
+#include <Arduino.h>
+#include <Wire.h>
 
 // Carpenter Software - Jesse Carpenter
 namespace csjc

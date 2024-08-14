@@ -23,7 +23,9 @@
 - Preliminary Test (private for now)
 
 ## In Development
-- 20240804 - First push
+- 20240804 - First push for nRF24L01+
+- 20240813 - The final push for nRF24L01+. The Joystick Uno L298N repository has to be updated in order to fix some motor movement issues. Those header files were moved here. Finished testing the code and worked out the Motor Movement Checklist (MMC). See the updated Study... Moving on to the next radio... Having fun.
+  - The *#define RUN_WITH_DEBUG_CODE* in the Common.h file was the only debug used for 1 second intervals for testing and for data acquisiton for the MMC. Shorter time intervals is still pending when time permits.
 
 ## Disclaimer and Terms
 - Please read

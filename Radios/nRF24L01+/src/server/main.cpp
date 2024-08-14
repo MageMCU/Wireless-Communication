@@ -26,6 +26,7 @@
 #include <SPI.h>
 
 #include "Common.h"
+#include "Headers.h"
 
 // Singleton instance of the radio driver
 RH_NRF24 driver;
@@ -56,15 +57,15 @@ Common data;
 
 void setup()
 {
-// #ifdef DEBUG_CODE
+#ifdef DEBUG_SERIAL
     Serial.begin(9600);
     while (!Serial)
         ;
     Serial.println("RADIO SERVER - Serial 9600 baudrate");
-// #endif
+#endif
     //
     if (!manager.init())
-#ifdef DEBUG_CODE
+#ifdef DEBUG_SERVER
         Serial.println("init failed")
 #endif
             ;
@@ -86,22 +87,9 @@ void setup()
     typeConv = TypeConv();
 }
 
-// All debug statements occur here in the main.cpp file
-// #ifdef DEBUG_CODE
-template <typename T1, typename T2>
-void Debug(String msg, T1 a, T2 b)
-{
-    Serial.print(msg);
-    Serial.print(" a: ");
-    Serial.print(a);
-    Serial.print(" b: ");
-    Serial.println(b);
-}
-// #endif
-
 void checkTransmissions()
 {
-#ifdef DEBUG_CODE
+#ifdef DEBUG_SERVER
     Serial.print("Server: TX-CNT: ");
     Serial.println(manager.retransmissions());
 #endif
@@ -131,21 +119,21 @@ void updateRadio()
     // an acknowledgement is automatically sent to the sender.  (RHReliableDatagram file)
     if (manager.recvfromAck(radioRX, &len, &from))
     {
-// #ifdef DEBUG_CODE
+#ifdef DEBUG_SERVER
         Serial.print("RX-request from : 0x");
         Serial.print(from, HEX);
         Serial.print(": ");
         Serial.println((char *)radioRX);
-// #endif
+#endif
         // Transmit TX
         // When addressed messages are sent (by sendtoWait()), it will wait for an ack, and retransmit
         // after timeout until an ack is received or retries are exhausted.  (RHReliableDatagram file)
         if (!manager.sendtoWait(radioTX, sizeof(radioTX), from))
         {
-            // Serial.println("sendtoWait failed");
-            Serial.println("X");
+#ifdef DEBUG_SERVER
+            Serial.println("sendtoWait failed");
+#endif
         }
-            
     }
 }
 
@@ -179,7 +167,7 @@ void updateMotors(float inputX, float inputY)
     float outputX = joystick.OutLeft();
     float outputY = joystick.OutRight();
 
-#ifdef DEBUG_CODE
+#ifdef DEBUG_SERVER
     Debug<float>("JS-Out: ", outputX, outputY);
 #endif
 
@@ -190,7 +178,7 @@ void updateMotors(float inputX, float inputY)
     int motorLeft = (int)joystickOutputsToMotors.Map(outputX);
     int motorRight = (int)joystickOutputsToMotors.Map(outputY);
 
-// #ifdef DEBUG_CODE
+// #ifdef DEBUG_SERVER
     // Use integers for radio data (easier)
     Debug<int>("motors: ", motorLeft, motorRight);
 // #endif
@@ -202,26 +190,26 @@ bool updateButton()
 {
     bool flag = buttonMotors.isButtonOn();
 
-// #ifdef DEBUG_CODE
+// #ifdef DEBUG_SERVER
     String str = "";
 // #endif
 
     if (flag)
     {
-// #ifdef DEBUG_CODE
+// #ifdef DEBUG_SERVER
         str = "But-ON";
 // #endif
         data.buttonState = (uint8_t)1;
     }
     else
     {
-// #ifdef DEBUG_CODE
+// #ifdef DEBUG_SERVER
         str = "But-OFF";
 // #endif
         data.buttonState = (uint8_t)0;
     }
 
-// #ifdef DEBUG_CODE
+// #ifdef DEBUG_SERVER
     Debug("Button: ", str, data.buttonState);
 // #endif
 
@@ -239,7 +227,7 @@ void updateJoystick()
         int xDigital = 1023 - analogRead(A1);
         int yDigital = 1023 - analogRead(A0);
 
-#ifdef DEBUG_CODE
+#ifdef DEBUG_SERVER
         Debug<int>("Analog: ", xDigital, yDigital);
         //
         int sizeInt = sizeof(int);
@@ -255,12 +243,12 @@ void updateJoystick()
         // Experiment sensitivity starting with zero (0)
         float OFFSET = 0.05;
         // Joystick X-Input with sensitivity
-        if (ABS_REAL<float>(inputX) < OFFSET)
+        if (absT<float>(inputX) < OFFSET)
             inputX = (float)0;
         // Joystick Y-Input with sensitivity
-        if (ABS_REAL<float>(inputY) < OFFSET)
+        if (absT<float>(inputY) < OFFSET)
             inputY = (float)0;
-#ifdef DEBUG_CODE
+#ifdef DEBUG_SERVER
         Debug<float>("JS-In: ", inputX, inputY);
 #endif
         // Notice: motors safety        ***
@@ -278,7 +266,7 @@ void loop()
 {
     buttonMotors.updateButton();
     // (1) Joystick Update Process
-    if (timerDebug.isTimer(BUTTON_TIMER_mS))
+    if (timerDebug.isTimer(JOYSTICK_TIMER_mS))
     {
         updateJoystick();
     }

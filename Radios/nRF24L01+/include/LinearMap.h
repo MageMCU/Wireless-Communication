@@ -2,8 +2,8 @@
 // Carpenter Software
 // File: Class LinearMap.h
 // Github: MageMCU
-// Repository: Wireless Communication
-// Folder: nRF24L01
+// Repository: Joystick-UNO-L298N
+// Folder: Code
 //
 // By Jesse Carpenter (carpentersoftware.com)
 //
@@ -15,10 +15,10 @@
 // MIT LICENSE
 //
 
-#include <Arduino.h>
-
 #ifndef Numerics_Linear_Map_h
 #define Numerics_Linear_Map_h
+
+#include <Arduino.h>
 
 // Carpenter Software - Jesse Carpenter
 namespace csjc
@@ -28,8 +28,7 @@ namespace csjc
     class LinearMap
     {
     private:
-
-        // Private Properties 
+        // Private Properties
         // Point-1
         T m_x1;
         T m_y1;

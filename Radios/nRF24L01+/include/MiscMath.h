@@ -2,8 +2,8 @@
 // Carpenter Software
 // File: Class MiscMath.h
 // Github: MageMCU
-// Repository: Wireless Communication
-// Folder: nRF24L01
+// Repository: Joystick-UNO-L298N
+// Folder: Code
 //
 // By Jesse Carpenter (carpentersoftware.com)
 //
@@ -15,11 +15,11 @@
 // MIT LICENSE
 //
 
-#include "Arduino.h"
-#include "Vector3.h"
-
 #ifndef Numerics_MiscMath_h
 #define Numerics_MiscMath_h
+
+#include "Arduino.h"
+#include "Vector3.h"
 
 // Carpenter Software - Jesse Carpenter
 namespace csjc
@@ -80,7 +80,7 @@ namespace csjc
     }
 
     template <typename real>
-    void DirectionComponents(real angleRadian, real& x, real& y, real& z, Plane2D plane2D)
+    void DirectionComponents(real angleRadian, real &x, real &y, real &z, Plane2D plane2D)
     {
         Vector3<real> vector = DirectionVector(angleRadian, plane2D);
         x = vector.x();
@@ -130,14 +130,58 @@ namespace csjc
         return (y2 - y1) * (x - x1) / (x2 - x1) + y1;
     }
 
-    // BUG FIX 20240805 jc
-    template <typename real>
-    real ABS_REAL(real val)
+    template <typename T>
+    T absT(T val)
     {
-        real Zero = (real)0;
-        if (val < Zero)
-            val *= (real)-1;
+        T zero = (T)0;
+        if (val < zero)
+            val *= (T)-1;
         return val;
+    }
+
+    void Debug(String msg)
+    {
+        Serial.println(msg);
+    }
+
+    template <typename T>
+    void Debug(String msg, T a)
+    {
+        Serial.print(msg);
+        Serial.print(" a: ");
+        Serial.println(a);
+    }
+
+    template <typename T>
+    void Debug(String msg, T a, T b)
+    {
+        Serial.print(msg);
+        Serial.print(" a: ");
+        Serial.print(a);
+        Serial.print(" b: ");
+        Serial.println(b);
+    }
+
+    template <typename S, typename T>
+    void Debug(String msg, S a, T b)
+    {
+        Serial.print(msg);
+        Serial.print(" a: ");
+        Serial.print(a);
+        Serial.print(" b: ");
+        Serial.println(b);
+    }
+
+    template <typename T>
+    void Debug(String msg, T a, T b, T c)
+    {
+        Serial.print(msg);
+        Serial.print(" a: ");
+        Serial.print(a);
+        Serial.print(" b: ");
+        Serial.print(b);
+        Serial.print(" c: ");
+        Serial.println(c);
     }
 }
 
