@@ -1,7 +1,4 @@
-# Radios
-
-## nRF24L01+
-
+# Radios - nRF24L01+
 - namespace ***csjc***
 - Note: The header files listed here are updated from the other older namespace header files.
 
@@ -25,7 +22,6 @@
 -  *Used PlatformIO to install RadioHead Lib.* - Please read **Study nRF24L01+** for more details...
 
 ### ***src folder***
-
 - client folder
     - main.cpp
 - DEP folder
@@ -36,9 +32,12 @@
     - main.cpp
 
 ### ***root folder***
-
 - platformio.ini
     - Read contents of this file because src folder uses multiple files which cannot be used at the same time when compiling...
+
+### Notes
+- The final testing was to decrease the timing down to 50ms for the MCU-1 (server with the joystick), the MCU-2 (client) and the MCU-3 (I2C with the motor diver) which went quite well. Next the debug defintions were commented out except for the SERIAL DEBUG. Strangely enough, it caused the client not to work. The code here at Github does not have this test but anyone can try to duplicate it as a project. Good luck.
+- The project is considered complete and is now closed until further notice.
 
 ### How to use this repository
 - Open PlatformIO with a new project...
