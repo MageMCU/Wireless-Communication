@@ -16,9 +16,6 @@
   - MCU-1: Radio Server - Joystick Input
   - MCU-2: Radio Client & I2C Master - Intermediary between MCU-1 & MCU-3
   - MCU-3: I2C Slave - Controller & Motors
-- Timing Strategy is at Radios 100ms & I2C 50ms (this could be tweaked even further - maybe) The motors responded quite nicely.
-- Could NOT get the amplified nRF24L01 radios to work... Could not find the FCC ID report for these either...
-- It's recommended that the inexpensive radios *about $1 each from Amazon* having the FCC ID 2A63C-NRF24L01 report at least for now until the user can get their project up and running.
 
 ## In Development
 - 20240804 - First push for nRF24L01+
@@ -26,4 +23,4 @@
   - The *#define RUN_WITH_DEBUG_CODE* in the Common.h file was the only debug used for 1 second intervals for testing and for data acquisiton for the MMC. Shorter time intervals is still pending when time permits.
 
 ## Disclaimer and Terms
-- Please read
+- Must read from this repository
