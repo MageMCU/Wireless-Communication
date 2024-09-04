@@ -1,5 +1,6 @@
 # Wireless-Communication
 - After six months of review, I have decided to start with these device(s). It is my hope to complete this project by the end of 2024. There were other radios under review but decided against using them because the IDE and code was beyond a beginners capability... Maybe later...
+- I reviewed several radios but I have been having bad luck with the amplified NRF24L01, the ESP32 and the XBee 900. Many of these radios have been returned back for one reason or another. This repository is now on hold for the year 2024. It will continue again around the middle 2025.
 
 ## Testing Platform
 - The MCU chip **Atmega328P** is well known and the price is affordable as well as most of the robotic hardware that is described here. The Arduino Uno board comes with a removable MCU.
@@ -18,9 +19,6 @@
 - Timing Strategy is at Radios 100ms & I2C 50ms (this could be tweaked even further - maybe) The motors responded quite nicely.
 - Could NOT get the amplified nRF24L01 radios to work... Could not find the FCC ID report for these either...
 - It's recommended that the inexpensive radios *about $1 each from Amazon* having the FCC ID 2A63C-NRF24L01 report at least for now until the user can get their project up and running.
-
-## Digi XBee-PRO 900HP DigiMesh Kit (US/Canada) XKB9-DMT-UHP
-- Preliminary Test (private for now)
 
 ## In Development
 - 20240804 - First push for nRF24L01+
