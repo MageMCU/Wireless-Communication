@@ -1,4 +1,6 @@
-# Radios - nRF24L01+
+# Radio - nRF24L01+
+- The nRF24L01+ is a single chip 2.4GHz transceiver with an embedded baseband protocol engine, suitable for ultra low power wireless applications. The nRF24L01+ is designed for operation in the world wide ISM frequency band at 2.400 - 2.4835GHz.To design a radio system with the nRF24L01+, you simply need an MCU (microcontroller) and a few external passive components.You can operate and configure the nRF24L01+ through a Serial Peripheral Interface (SPI). The register map, which is accessible through the SPI, contains all configuration registers in the nRF24L01+ and is accessible in all operation modes of the chip. (datasheet)
+
 - namespace ***csjc***
 - Note: The header files listed here are updated from the other older namespace header files.
 

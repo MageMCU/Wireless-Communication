@@ -19,7 +19,7 @@
   - MCU-3: I2C Slave - Controller & Motors
 
 ## Digi XBee-PRO 900HP DigiMesh kit
-- Under review and testing
+- Preliminary Test - under review and testing
 
 ## In Development
 - 20240804 - First push for nRF24L01+
