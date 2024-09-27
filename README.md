@@ -1,6 +1,7 @@
 # Wireless-Communication
 - After six months of review, I have decided to start with these device(s). It is my hope to complete this project by the end of 2024. There were other radios under review but decided against using them because the IDE and code was beyond a beginners capability... Maybe later...
-- I reviewed several radios but I have been having bad luck with the amplified NRF24L01, the ESP32 and the XBee 900. Many of these radios have been returned back for one reason or another. This repository is now on hold for the year 2024. It will continue again around the middle 2025.
+- I reviewed several radios but I have been having bad luck with the amplified NRF24L01, and the ESP32. Many of these radios have been returned back for one reason or another.
+- Thanks to both Digikey and Digi for their support and best of all, a replacement was recieved for the XBee 900. 
 
 ## Testing Platform
 - The MCU chip **Atmega328P** is well known and the price is affordable as well as most of the robotic hardware that is described here. The Arduino Uno board comes with a removable MCU.
@@ -16,6 +17,9 @@
   - MCU-1: Radio Server - Joystick Input
   - MCU-2: Radio Client & I2C Master - Intermediary between MCU-1 & MCU-3
   - MCU-3: I2C Slave - Controller & Motors
+
+## Digi XBee-PRO 900HP DigiMesh kit
+- Under review and testing
 
 ## In Development
 - 20240804 - First push for nRF24L01+
