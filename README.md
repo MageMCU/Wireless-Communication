@@ -19,7 +19,9 @@
   - MCU-3: I2C Slave - Controller & Motors
 
 ## Digi XBee-PRO 900HP DigiMesh kit
-- Preliminary Test - under review and testing
+- 20250826 actively testing radios. The Digi XCTU software was used to re-configure set-1 with 3 radios and all passed the simple AT mode communications. When initially recieved the radio after purchase, it was assumed their configuration were identical. The assumption was wrong.
+- The AT mode is the simple communication between two radios.
+- 20250826 - Will use both the Arduino Uno and Raspberry Pi 3 where each will have a radio attached. Resullts pending []
 
 ## In Development
 - 20240804 - First push for nRF24L01+
