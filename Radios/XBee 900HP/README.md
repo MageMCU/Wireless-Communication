@@ -2,7 +2,7 @@
 - Digi International - XBee-PRO 900HP (S3B) DigiMesh, 900MHz, 250mW, Wire Antenna, 200Kbps (North America XBP9B-DMWT-002). The Digi XBee-PRO 900HP DigiMesh Kit (US/Canada XKB9-DMT-UHP) comes with three radios.
     - Recommended Digi User Guides
         - Digi XBee-PRO 900HP DigiMesh Kit - Radio Frequency (RF) Module - User Guide
-            - Supplemental: Digi - XBee-PRO 900HP/XSC RF Modules - S3and S3B - User Guide (This guide has more information.)
+            - Supplemental: Digi - XBee-PRO 900HP/XSC RF Modules - S3 and S3B - User Guide (This guide has more information.)
         - Digi - XCTU - Configuration and Test Utility Software
         - Digi - XBee Grove Development Board - User Guide
 - Digi XCTU - Configuration and Test Utility Software.
