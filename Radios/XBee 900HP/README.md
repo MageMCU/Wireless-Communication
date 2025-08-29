@@ -117,7 +117,7 @@ void readXBeeApiFrame() {
     digitalWrite(XBEE_SS_PIN, HIGH);
 }
 
-// Working on ther versions that are similar to this code...
+// Working on other versions that are similar to this code...
 ```
 - The key consideration are (1) the Logic Level Shifter, (2) the API Frame format, (3) the SPI_nATTN Pin and (4) Dedicated SPI Libtrary.
     - The standard Arduino SPI.h library is functional but using a specialized XBee library (such as the one from Digi) can significantly simplify the process of constructing and parsing API frames.
