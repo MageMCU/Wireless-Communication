@@ -14,7 +14,7 @@
 - namespace ***csjc***
 
 ## Experimental Approach
-- Using an Arduino Uni with an VBee 900HP in SPI mode...
+- Using an Arduino Uno with an XBee 900HP in **SPI mode** similarly with the radio nRF24L01+ requires three primary steps: hardware connection, configuring the XBee for SPI and API modes, and writing the Arduino code. (The Raspberry Pi 3 will be test once the Arduino Uno test is completed.) 
   
 ### ***include folder***
 
