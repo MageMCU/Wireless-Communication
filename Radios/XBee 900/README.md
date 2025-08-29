@@ -34,6 +34,11 @@
     2. **Enable SPI:** Go to the I/O Settings section and configure the following pins:
         * **P1(SPI_nATTN):** Set to 3 (SPI_nATTN)
         * **P2(SPI_MISO):** Set to 4 (SPI_MISO)
+        * **P3(SPI_MOSI):** Set to 3 (SPI_MOSI)
+        * **P4(SPI_CLK):** Set to 2 (SPI_CLK)
+        * **P8(SPI_nSSel):** Set to 1 (SPI_nSSel)
+    3. **Enable API mode:** Serial port flow control is not possible when using the SPI port. The SPI only operates in API mode 1. The SPI does not support Transparent mode or API mode 2 (with escaped characters). This means that the AP configuration only applies to the UART interface and is ignored while using the SPI. (source: *Digi XBee®-PRO 900HP/XSC RF Modules - User Guide*)
+S3 and S3B)
 
 ### ***include folder***
 
