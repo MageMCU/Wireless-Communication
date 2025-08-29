@@ -17,7 +17,7 @@
 
 ## Experimental Approach (For author's purposes ONLY - DO NOT TRY)
 - Using an Arduino Uno with an XBee 900HP in **SPI mode** similarly with the radio nRF24L01+ requires three primary steps: hardware connection, configuring the XBee for SPI and API modes, and writing the Arduino code. (*The Raspberry Pi 3 will be tested once the Arduino Uno test is completed.*) Since the Arduino Uno uses 5V logic and the XBee 900HP uses 3.3V logic, its important a **logic level shifter** is used for safety.
-- **(1) Hardware connection**
+**(1) Hardware connection**
 
 | Arduino Uno  (Master) | Logic Level Shifter | XBee 900HP (Slave) | Connection Detail                 |
 | ---- | ---- | ---- | ---- |
@@ -30,7 +30,7 @@
 | - | LV | **VCC** (Pin 1) | The 3.3V supply for the XBee. |
 | - | LV | **SPI_nATTN** (Pin 19) | An optional pin for the XBee to alert the Arduino that data is ready. |
 
-- **(2) Configure the XBee**
+**(2) Configure the XBee**
     - The **Digi XCTU software** is used to change the XBee settings from the default UART mode to SPI and API mode. This requires connecting the XBee to the computer using a USB connection. (*The Digi Xbee-PRO 900HP DigiMesh Kit comes with development boards which has this USB cababilties.*)
     1. **Read your current settings:** Open XCTU and select the XBee.
     2. **Enable SPI:** Go to the I/O Settings section and configure the following pins:
@@ -42,12 +42,13 @@
     3. **Enable API mode:** Serial port flow control is not possible when using the SPI port. The SPI only operates in API mode 1. The SPI does not support Transparent mode or API mode 2 (with escaped characters). This means that the AP configuration only applies to the UART interface and is ignored while using the SPI. (source: *Digi XBee®-PRO 900HP/XSC RF Modules - User Guide*)
 S3 and S3B)
     4. **Save settings:** Write the changes to the module.
-- **(3) Arduino Uno sketch**
+**(3) Arduino Uno sketch**
     - Use the Arduino SPI library to set up the Uno as the master and send and receive API frames to and from the XBee. The following is a basci structure for communication. (source: *Google AI*) The code is a work in progress.
 ```c++
 // CODE HAS YET TO BE TESTED - CHECK SYNTAX
 
 #include <SPI.h>
+
 // Define Xbee SPI pins fro Arduino Uno
 const int XBEE_SS_PIN = 10;
 const int XBEE_nATTN_PIN = 9;
@@ -121,6 +122,59 @@ void readXBeeApiFrame() {
 ```
 - The key consideration are (1) the Logic Level Shifter, (2) the API Frame format, (3) the SPI_nATTN Pin and (4) Dedicated SPI Libtrary.
     - The standard Arduino SPI.h library is functional but using a specialized XBee library (such as the one from Digi) can significantly simplify the process of constructing and parsing API frames. (Digi may not have an Arduino SPI library for these particular radios...)
+- **Alternate: Transmitting an API frame**
+
+```c++
+// CODE HAS YET TO BE TESTED - CHECK SYNTAX
+
+// Arduino library
+#include <SPI.h>
+// Github: Andrew Rapp - repository: xbee-arduino
+// Used for packet handling - In API mode, the XBee 
+// module encapsulates data in structured packets, 
+// including information like sender address, API ID, 
+// data length, and payload.
+#include <XBee.h>
+
+// Define the pin for the XBee SPI nATTN line
+const int XBEE_ATTN = 2;
+
+// Create an XBee object
+XBee xbee = XBee();
+
+// Setup the XBee API frame
+Tx64Request tx = Tx64Request();
+TxStatusResponse txStatus = TxStatusResponse();
+
+void setup() {
+    Serial.begin(9600);
+    SPI.begin();
+
+    // Setup the interrupt for the XBee ATTN pin
+    pinMode(XBEE_ATTN, INPUT);
+    attachInterrupt(digitalPinTpInterrupt(XBEE_ATTN), attn_interrupt, FALLING);
+
+    // Initialize the XBee library with the SPI interface
+    xbee.setSpi(SPI);
+    Serial.println("XBee in SPI mode is ready");
+}
+
+void loop() {
+    // ...
+}
+
+void attn_interrupt() {
+    // ...
+}
+
+```
+
+- **Alternate: Receiving an API frame**
+```c++
+#include <SPI.h>
+#include <XBee.h>
+
+```
 
 ### ***include folder***
 
