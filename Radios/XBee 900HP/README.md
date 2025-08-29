@@ -1,17 +1,19 @@
 ## Radio - XBee-PRO 900HP - 900 MHz RF Module
-- Digi International - XBee-PRO 900HP embedded modules provide best-in-class range wireless connectivity to devices. They take advantage of the DigiMesh networking protocol, featuring dense network operation and support for sleeping routers, and are also available in a proprietary point-to-multipoint configuration. Supporting RF line-of-sight ranges up to **28 miles** (*with high-gain antennas*), and data rates of up to 200 Kbps, these modules are ideal for extended-range applications requiring increased data throughput. The XBee-PRO 900HP requires no programming and can be configured easily using Digi’s free **X-CTU** software or via a simplified AT command set. (datasheet)
-- **Serial Communication**
-    - An XBee module can operate as a stand-alone device or it can be attached to an intelligent device. For example, you can place several battery-powered XBee modules in remote locations to gather data such as temperature, humidity, light, or liquid level.
-        - When operating as a stand-alone device, an XBee module simply sends sensor data to a central node.
-        - When an XBee module is connected to an intelligent device (such as a computer, **Arduino**, or **Raspberry Pi**), it uses serial communication:
-            - The intelligent device sends data through the serial interface to the XBee module to be transmitted to other devices over the air.
-            - The XBee module receives wireless data from other devices, and then sends the data through the serial interface to the intelligent device.
-    - The XBee modules **interface to a host device such as a microcontroller or computer through a logic-level asynchronous serial port**. They use a **UART** for serial communication with those devices.
-    - For additional information about serial communication, go to the **XBee-PRO 900HP and XSC RF Modules User Guide**.
-    - Microcontrollers attached to an XBee module can process the information received by the module and thus monitor or even control remote devices by sending messages through their local XBee module.
-    - For prototyping, you can use external microcontrollers such as **Arduino** or **Raspberry Pi**, **sockets**, and **breadboards**.
-    - *XBee-PRO 900HP DigiMesh Kit - Radio Frequency (RF) Module - User Guide*
-- namespace ***csjc***
+- Digi International - XBee-PRO 900HP (S3B) DigiMesh, 900MHz, 250mW, Wire Antenna, 200Kbps (North America XBP9B-DMWT-002). The Digi XBee-PRO 900HP DigiMesh Kit (US/Canada XKB9-DMT-UHP) comes with three radios.
+    - Recommended Digi User Guides
+        - Digi XBee-PRO 900HP DigiMesh Kit - Radio Frequency (RF) Module - User Guide
+            - Supplemental: Digi - XBee-PRO 900HP/XSC RF Modules - S3and S3B - User Guide (This guide has more information.)
+        - Digi - XCTU - Configuration and Test Utility Software
+        - Digi - XBee Grove Development Board - User Guide
+- Digi XCTU - Configuration and Test Utility Software.
+    - Radio module operating mode
+        - AT operating mode
+        - API operating mode (SPI communication requires this operating mode.)
+        - API escaped operating mode
+- Addional Information - Arduino Uno
+    - Digi - [Do more with API mode: XBee libraries](https://docs.digi.com//resources/documentation/digidocs/90001496/concepts/c_xbee_libraries_api_mode.htm?TocPath=XBee%20API%20mode%7C_____6)
+        -  While using the Arduino SPI.h library is possible for low-level communication, there is no official or widely-supported Arduino library specifically for the XBee 900HP (S3/S3B) using SPI. The popular xbee-arduino library only supports API mode over a UART (serial) connection, not SPI. 
+            - Sent support request to Digi on this issue otherwise there seems to be a lot of develpment ahead...
 
 ## Experimental Approach (For author's purposes ONLY - DO NOT TRY)
 - Using an Arduino Uno with an XBee 900HP in **SPI mode** similarly with the radio nRF24L01+ requires three primary steps: hardware connection, configuring the XBee for SPI and API modes, and writing the Arduino code. (*The Raspberry Pi 3 will be tested once the Arduino Uno test is completed.*) Since the Arduino Uno uses 5V logic and the XBee 900HP uses 3.3V logic, its important a **logic level shifter** is used for safety.
@@ -114,6 +116,8 @@ void readXBeeApiFrame() {
     // Deselect the XBee
     digitalWrite(XBEE_SS_PIN, HIGH);
 }
+
+// Working on ther versions that are similar to this code...
 ```
 - The key consideration are (1) the Logic Level Shifter, (2) the API Frame format, (3) the SPI_nATTN Pin and (4) Dedicated SPI Libtrary.
     - The standard Arduino SPI.h library is functional but using a specialized XBee library (such as the one from Digi) can significantly simplify the process of constructing and parsing API frames.

@@ -1,7 +1,6 @@
 # Wireless-Communication
-- After six months of review, I have decided to start with these device(s). It is my hope to complete this project by the end of 2024. There were other radios under review but decided against using them because the IDE and code was beyond a beginners capability... Maybe later...
-- I reviewed several radios but I have been having bad luck with the amplified NRF24L01, and the ESP32. Many of these radios have been returned back for one reason or another.
-- Thanks to both Digikey and Digi for their support and best of all, recieved a replacement for the XBee 900 radio. 
+- MakerFocus 10pcs NRF24L01+ 2.4GHz Wireless RF Transceiver Module Compatible with Arduino and Raspberry Pi.
+- XBee-PRO 900HP (S3B) DigiMesh, 900MHz, 250mW, Wire Antenna, 200Kbps (North America XBP9B-DMWT-002). The Digi XBee-PRO 900HP DigiMesh Kit (US/Canada XKB9-DMT-UHP) comes with three radios.
 
 ## Testing Platform
 - The MCU chip **Atmega328P** is well known and the price is affordable as well as most of the robotic hardware that is described here. The Arduino Uno board comes with a removable MCU.
@@ -11,7 +10,7 @@
 ## MakerFocus NRF24L01+ 2.4GHz Wireless Transceiver 
 - Preliminary Test [Study nRF24L01+](https://drive.google.com/file/d/16c0QiXB1juv79E4-AEpoiPuyevjmZlZL)
   - Updated the study with the Motor Movement Checklist after updating the Joystick Uno L298N repository.
-- RadioHead version 1.22.1 by Mike McCauley [Arduino Reference Libraries](https://www.arduino.cc/reference/en/libraries/radiohead/)
+- ~~RadioHead version 1.22.1 by Mike McCauley~~ There is a new version. [Arduino Reference Libraries](https://www.arduino.cc/reference/en/libraries/radiohead/) New version not tested...
 - FCC ID [2A63C-NRF24L01](https://fcc.report/FCC-ID/2A63C-NRF24L01) report (Shenzhen Danaotiankong Technology Co., Ltd) for MakerFocus NRF24L01+2.4GHz Wire Less RF Transceiver Module
 - Note: Finished wiring the motor controller & motors
   - MCU-1: Radio Server - Joystick Input
@@ -19,12 +18,11 @@
   - MCU-3: I2C Slave - Controller & Motors
 
 ## Digi XBee-PRO 900HP DigiMesh kit
-- 20250826 actively testing radios. The Digi XCTU software was used to re-configure set-1 with 3 radios and all passed the simple AT mode communications. When initially recieved the radio after purchase, it was assumed their configuration were identical. The assumption was wrong.
-- The AT mode is the simple communication between two radios.
-- 20250826 - Will use both the Arduino Uno and Raspberry Pi 3 where each will have a radio attached. Resullts pending []
+- 20250826 actively testing radios. The Digi XCTU software was used to configure set-1 with 3 radios and all passed... While using the **Digi XCTU software** in the **configuration working mode** (Cog Wheel) under **Serial Interfacing**, the **AP (API Enable)** mode setting was set to **Transparent Mode [0]**.
+- Shifting away from XBee transparent mode...
 
 ## In Development
-- 20240804 - First push for nRF24L01+
+- 20250829 - Testing XBee radios...
 - 20240813 - The final push for nRF24L01+. The Joystick Uno L298N repository has to be updated in order to fix some motor movement issues. Those header files were moved here. Finished testing the code and worked out the Motor Movement Checklist (MMC). See the updated Study... Moving on to the next radio... Having fun.
   - The *#define RUN_WITH_DEBUG_CODE* in the Common.h file was the only debug used for 1 second intervals for testing and for data acquisiton for the MMC. Shorter time intervals is still pending when time permits.
 
