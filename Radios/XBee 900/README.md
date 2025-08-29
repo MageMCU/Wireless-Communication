@@ -81,8 +81,38 @@ void loop() {
     }
 }
 
-void sendXBeeApiframe() {
-    
+void sendXBeeApiFrame() {
+    // Example API frame payload (e.g. AT command frame)
+    byte frame[] = {0x7E, 0x00, 0x04, 0x08, 0x01, 0x4E, 0x49, 0x6E);
+
+    // Selcet the XBee
+    digitalWrite(XBEE_SS_PIN, LOW);
+
+    for (int i = 0; i < sizeof(frame); i++) {
+        SPI.transfer(frame[i]);
+    }
+
+    // Deselect the XBee
+    digitalWrite(XBEE_SS_PIN, HIGH);
+
+    Serial.println("API frame sent");
+}
+
+void readXBeeApiFrame() {
+    // Read incoming data when the attention pin is low
+    // Select the XBee
+    digitalWrite(XBEE_SS_PIN, LOW);
+
+    // The XBee documentation is key to correctly interpreting the API frame...
+    // The frame begins with the start delimiter (0x7E) and has the length feild...
+    // The SPI.transfer() function perfoems a simultaneous reand and write.
+    bytr receivedByte = SPI.transfer(0xFF);
+
+    // Read the rest of the fram based on the length field
+    // ...
+
+    // Deselect the XBee
+    digitalWrite(XBEE_SS_PIN, HIGH);
 }
 ```
 ### ***include folder***
