@@ -20,7 +20,8 @@
 | Arduino Uno  (Master) | Logic Level Shifter | XBee 900HP (Slave) | Connection Detail                 |
 | ---- | ---- | ---- | ---- |
 | **SS** (Pin 10) | Low Voltage (LV) | **SPI_nSSel** (Pin 17) | Chip select line for controlling the XBee. |
-| **MOSI** (Pin 11) | LV | **SPI_MOSI** (Pin 11) | Master Out Slave for receiving data. |
+| **MOSI** (Pin 11) | LV | **SPI_MOSI** (Pin 11) | **Master-Out Slave-In** for transmitting data. |
+| **MISO** (Pin 12) | High Voltage (HV) | **SPI_MISO** (Pin 4) | **Master-In Slave-Out** for receiving data. |
 
 ### ***include folder***
 
