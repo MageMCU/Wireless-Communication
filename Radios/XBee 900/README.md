@@ -13,7 +13,7 @@
     - *XBee-PRO 900HP DigiMesh Kit - Radio Frequency (RF) Module - User Guide*
 - namespace ***csjc***
 
-## Experimental Approach
+## Experimental Approach (For author's purposes ONLY - DO NOT TRY)
 - Using an Arduino Uno with an XBee 900HP in **SPI mode** similarly with the radio nRF24L01+ requires three primary steps: hardware connection, configuring the XBee for SPI and API modes, and writing the Arduino code. (*The Raspberry Pi 3 will be tested once the Arduino Uno test is completed.*) Since the Arduino Uno uses 5V logic and the XBee 900HP uses 3.3V logic, its important a **logic level shifter** is used for safety.
 - **(1) Hardware connection**
 
@@ -29,7 +29,11 @@
 | - | LV | **SPI_nATTN** (Pin 19) | An optional pin for the XBee to alert the Arduino that data is ready. |
 
 - **(2) Configure the XBee**
-
+- The **Digi XCTU software** is used to change the XBee settings from the default UART mode to SPI and API mode. This requires connecting the XBee to the computer using a USB connection. (*The Digi Xbee-PRO 900HP DigiMesh Kit comes with development boards which has this USB cababilties.*)
+    1. **Read your current settings:** Open XCTU and select the XBee.
+    2. **Enable SPI:** Go to the I/O Settings section and configure the following pins:
+        * **P1(SPI_nATTN):** Set to 3 (SPI_nATTN)
+        * **P2(SPI_MISO):** Set to 4 (SPI_MISO)
 
 ### ***include folder***
 
