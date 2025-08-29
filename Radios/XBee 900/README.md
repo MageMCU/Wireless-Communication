@@ -43,6 +43,8 @@ S3 and S3B)
 - **(3) Arduino Uno sketch**
     - Use the Arduino SPI library to set up the Uno as the master and send and receive API frames to and from the XBee. The following is a basci structure for communication. (source: *Google AI*)
 ```
+// CODE HAS YET TO BE TESTED - CHECK SYNTAX
+
 #include <SPI.h>
 // Define Xbee SPI pins fro Arduino Uno
 const int XBEE_SS_PIN = 10;
@@ -62,6 +64,25 @@ void setup() {
 
     // Optional: Listen for the ATTN pin for incoming data
     pinMode(XBEE_nATTN_PIN, INPUT);
+}
+
+void loop() {
+    // Example: Send an API frame
+    if (Serial.available()) {
+        char receivedChar = Serial.read();
+        if (receivedChar == 's' {
+            sendXBeeApiFrame();
+        }
+    }
+
+    // Example: Check for incoming data from XBee
+    if (digitalRead(XBEE_nATTN_PIN) == LOW) {
+        readXBeeApiFrame();
+    }
+}
+
+void sendXBeeApiframe() {
+    
 }
 ```
 ### ***include folder***
