@@ -42,7 +42,7 @@ S3 and S3B)
     4. **Save settings:** Write the changes to the module.
 - **(3) Arduino Uno sketch**
     - Use the Arduino SPI library to set up the Uno as the master and send and receive API frames to and from the XBee. The following is a basci structure for communication. (source: *Google AI*)
-```
+```c++
 // CODE HAS YET TO BE TESTED - CHECK SYNTAX
 
 #include <SPI.h>
