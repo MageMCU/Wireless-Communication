@@ -41,7 +41,7 @@
 S3 and S3B)
     4. **Save settings:** Write the changes to the module.
 - **(3) Arduino Uno sketch**
-    - Use the Arduino SPI library to set up the Uno as the master and send and receive API frames to and from the XBee. The following is a basci structure for communication. (source: *Google AI*)
+    - Use the Arduino SPI library to set up the Uno as the master and send and receive API frames to and from the XBee. The following is a basci structure for communication. (source: *Google AI*) The code is a work in progress.
 ```c++
 // CODE HAS YET TO BE TESTED - CHECK SYNTAX
 
@@ -115,6 +115,9 @@ void readXBeeApiFrame() {
     digitalWrite(XBEE_SS_PIN, HIGH);
 }
 ```
+- The key consideration are (1) the Logic Level Shifter, (2) the API Frame format, (3) the SPI_nATTN Pin and (4) Dedicated SPI Libtrary.
+    - The standard Arduino SPI.h library is functional but using a specialized XBee library (such as the one from Digi) can significantly simplify the process of constructing and parsing API frames.
+
 ### ***include folder***
 
 ### ***src folder***
