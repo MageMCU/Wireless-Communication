@@ -15,7 +15,7 @@
 
 ## Experimental Approach
 - Using an Arduino Uno with an XBee 900HP in **SPI mode** similarly with the radio nRF24L01+ requires three primary steps: hardware connection, configuring the XBee for SPI and API modes, and writing the Arduino code. (*The Raspberry Pi 3 will be tested once the Arduino Uno test is completed.*) Since the Arduino Uno uses 5V logic and the XBee 900HP uses 3.3V logic, its important a **logic level shifter** is used for safety.
-- 1. Hardware connection
+- (1) Hardware connection
 
 | Arduino Uno  (Master) | Logic Level Shifter | XBee 900HP (Slave) | Connection Detail                 |
 | ---- | ---- | ---- | ---- |
