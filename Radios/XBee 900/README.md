@@ -29,7 +29,7 @@
 | - | LV | **SPI_nATTN** (Pin 19) | An optional pin for the XBee to alert the Arduino that data is ready. |
 
 - **(2) Configure the XBee**
-- The **Digi XCTU software** is used to change the XBee settings from the default UART mode to SPI and API mode. This requires connecting the XBee to the computer using a USB connection. (*The Digi Xbee-PRO 900HP DigiMesh Kit comes with development boards which has this USB cababilties.*)
+    - The **Digi XCTU software** is used to change the XBee settings from the default UART mode to SPI and API mode. This requires connecting the XBee to the computer using a USB connection. (*The Digi Xbee-PRO 900HP DigiMesh Kit comes with development boards which has this USB cababilties.*)
     1. **Read your current settings:** Open XCTU and select the XBee.
     2. **Enable SPI:** Go to the I/O Settings section and configure the following pins:
         * **P1(SPI_nATTN):** Set to 3 (SPI_nATTN)
@@ -39,7 +39,12 @@
         * **P8(SPI_nSSel):** Set to 1 (SPI_nSSel)
     3. **Enable API mode:** Serial port flow control is not possible when using the SPI port. The SPI only operates in API mode 1. The SPI does not support Transparent mode or API mode 2 (with escaped characters). This means that the AP configuration only applies to the UART interface and is ignored while using the SPI. (source: *Digi XBee®-PRO 900HP/XSC RF Modules - User Guide*)
 S3 and S3B)
-
+    4. **Save settings:** Write the changes to the module.
+- **(3) Arduino Uno sketch**
+    - Use the Arduino SPI library to set up the Uno as the master and send and receive API frames to and from the XBee. The following is a basci structure for communication. (source: *Google AI*)
+```
+#include <SPI.h>
+```
 ### ***include folder***
 
 ### ***src folder***
