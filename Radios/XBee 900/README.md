@@ -13,6 +13,9 @@
     - *XBee-PRO 900HP DigiMesh Kit - Radio Frequency (RF) Module - User Guide*
 - namespace ***csjc***
 
+## Experimental Approach
+- Using an Arduino Uni with an VBee 900HP in SPI mode...
+  
 ### ***include folder***
 
 ### ***src folder***
