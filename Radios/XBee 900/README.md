@@ -26,7 +26,10 @@
 | **GND** | GND | **GND** | Common Ground Connection |
 | **5V** | HV | - | Powers the high-voltage side of the shifter. |
 | - | LV | **VCC** (Pin 1) | The 3.3V supply for the XBee. |
-| - | LV | **SPI_nATTN** (Pin 19) | An optional pin for the XBee to aleat the Arduino that data is ready. |
+| - | LV | **SPI_nATTN** (Pin 19) | An optional pin for the XBee to alert the Arduino that data is ready. |
+
+- **(2) Configure the XBee**
+
 
 ### ***include folder***
 
