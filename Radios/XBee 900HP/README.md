@@ -14,7 +14,7 @@
     - Digi - [Do more with API mode: XBee libraries](https://docs.digi.com//resources/documentation/digidocs/90001496/concepts/c_xbee_libraries_api_mode.htm?TocPath=XBee%20API%20mode%7C_____6)
         -  While using the Arduino SPI.h library is possible for low-level communication, there is no official or widely-supported Arduino library specifically for the XBee 900HP (S3/S3B) using SPI. The popular xbee-arduino library only supports API mode over a UART (serial) connection, not SPI. 
             - Sent support request to Digi on this issue otherwise there seems to be a lot of develpment ahead...
-    - Andrew Rapp github (xbee-arduino)[https://github.com/andrewrapp/xbee-arduino]
+    - Andrew Rapp github [xbee-arduino](https://github.com/andrewrapp/xbee-arduino)
 
 ## Experimental Approach (For author's purposes ONLY - DO NOT TRY)
 - Using an Arduino Uno with an XBee 900HP in **SPI mode** similarly with the radio nRF24L01+ requires three primary steps: hardware connection, configuring the XBee for SPI and API modes, and writing the Arduino code. (*The Raspberry Pi 3 will be tested once the Arduino Uno test is completed.*) Since the Arduino Uno uses 5V logic and the XBee 900HP uses 3.3V logic, its important a **logic level shifter** is used for safety.
