@@ -12,10 +12,30 @@
         - API operating mode (SPI communication requires this operating mode.)
         - API escaped operating mode
 - Addional Information - Arduino Uno
-    - Digi - [Do more with API mode: XBee libraries](https://docs.digi.com//resources/documentation/digidocs/90001496/concepts/c_xbee_libraries_api_mode.htm?TocPath=XBee%20API%20mode%7C_____6)
-        -  While using the Arduino SPI.h library is possible for low-level communication, there is no official or widely-supported Arduino library specifically for the XBee 900HP (S3/S3B) using SPI. The popular xbee-arduino library only supports API mode over a UART (serial) connection, not SPI. 
-            - Sent support request to Digi on this issue otherwise there seems to be a lot of develpment ahead...
-    - Andrew Rapp github [xbee-arduino](https://github.com/andrewrapp/xbee-arduino)
+    - [Digi International Inc. **Github**](https://github.com/digidotcom)
+        - [digidotcom/xbee_ansic_library **Github**](https://github.com/digidotcom/xbee_ansic_library)
+            - [Overview of Digi International's ANSI C XBee(R) Host Library **Github**](https://digidotcom.github.io/xbee_ansic_library/)
+    - Furthermore, Digi makes reference to [Felix Galindo - **Github**](https://github.com/felixgalindo)
+        - [XBee C Library](https://github.com/felixgalindo/xbee_c_library)
+            - [XBeeArduino](https://github.com/felixgalindo/XBeeArduino)
+- SPI implementation for the XBee-PRO 900HP (S3B) (source: *XBee®-PRO 900HP/XSC RF Modules S3 and S3B - User Guide*)
+    - **The XBee-PRO 900HP RF Module operates as a SPI slave only.** This means an **external master** like Arduino Uno provides the clock and decides when to send data. The XBee-PRO 900HP RF Module supports an external clock rate of up to 3.5 Mb/s.
+    - The device transmits and receives data with the **most significant bit first using SPI mode 0**. This means the CPOL and CPHA are both 0. We chose Mode 0 because it is the typical default for most microcontrollers and simplifies configuring the master.
+    - The specification for SPI includes the four signals: **SPI_MISO**, **SPI_MOSI**, **SPI_CLK**, and **SPI_SSEL**. Using only these four signals, the master cannot know when the slave needs to send and the SPI slave cannot transmit unless enabled by the master. For this reason, the **SPI_ATTN** signal is available. This allows the device to alert the SPI master that it has data to send. In turn, the SPI master asserts SPI_SSEL and starts SPI_CLK unless these signals are already asserted and active respectively. This allows the XBee-PRO 900HP RF Module to send data to the master.
+    - Full duplex operation
+        - SPI on the XBee-PRO 900HP RF Module requires that you use **API mode (without escaping)** to packetize data. By design, SPI is a full duplex protocol even when data is only available in one direction. This means that when a device receives data, it also transmits and that data is normally invalid. Likewise, when the device transmits data, invalid data is probably received. To determine whether or not received data is invalid, we packetize the data with API packets.
+        - SPI allows for valid data from the slave to begin before, at the same time, or after valid data begins from the master. When the master is sending data to the slave and the slave has valid data to send in the middle of receiving data from the master, this allows a true full duplex operation where data is valid in both directions for a period of time. Not only must the master and the slave both be able to keep up with the full duplex operation, but both sides must honor the protocol as specified.
+- API mode and API frame format
+    - As an alternative to Transparent operating mode, you can use API operating mode. API mode provides a structured interface where data is communicated through the serial interface in organized packets and in a determined order. This enables you to establish complex communication between devices without having to define your own protocol. The API specifies how commands, command responses and device status messages are sent and received from the device using the serial interface or the SPI interface.
+        - API operation (AP parameter = 1)
+
+| Frame fields | Byte | Description |
+| ----- | ----- | ----- |
+|Start delimiter | 1 | 0x7E |
+| Length | 2 - 3 | Most Significant Byte, Least Significant Byte |
+| Frame data | 4-n | API-specific structure |
+| Checksum | n+1 | 1 byte |
+
 
 ## Digi XBee-PRO 900HP RF (S3 & S3B) Module
 ### Pin signals (Pin connections)
@@ -92,192 +112,11 @@
     4. **Save settings:** Write the changes to the module.
 
 ### (3) Arduino Uno sketch (Experimental)
-
-- Use the Arduino SPI library to set up the Uno as the master and send and receive API frames to and from the XBee. The following is a basci structure for communication. (source: *Google AI*) The code is a work in progress.
-
-```c++
-// CODE HAS YET TO BE TESTED - CHECK SYNTAX
-
-#include <SPI.h>
-
-// Define Xbee SPI pins fro Arduino Uno
-const int XBEE_SS_PIN = 10;
-const int XBEE_nATTN_PIN = 9;
-
-void setup() {
-    Serial.begins(9600);
-    SPI.begin();
-    // Set the Slave Select (SS) pin as an output and set it high
-    // to deselect the XBee initially.
-    pinMode(XBEE_SS_PIN, OUTPUT);
-    digitalWrite(XBEE_SS_PIN, HIGH);
-
-    // Configure the SPI settings for the XBee 900HP
-    // The XBee uses uses SPI mode 0 (CPOL=0, CPHA=0) and MSB first.
-    SPI.beginTransaction(SPISettings(5000000, MSFIRST, SPI_MODE0));
-
-    // Optional: Listen for the ATTN pin for incoming data
-    pinMode(XBEE_nATTN_PIN, INPUT);
-}
-
-void loop() {
-    // Example: Send an API frame
-    if (Serial.available()) {
-        char receivedChar = Serial.read();
-        if (receivedChar == 's' {
-            sendXBeeApiFrame();
-        }
-    }
-
-    // Example: Check for incoming data from XBee
-    if (digitalRead(XBEE_nATTN_PIN) == LOW) {
-        readXBeeApiFrame();
-    }
-}
-
-void sendXBeeApiFrame() {
-    // Example API frame payload (e.g. AT command frame)
-    byte frame[] = {0x7E, 0x00, 0x04, 0x08, 0x01, 0x4E, 0x49, 0x6E);
-
-    // Selcet the XBee
-    digitalWrite(XBEE_SS_PIN, LOW);
-
-    for (int i = 0; i < sizeof(frame); i++) {
-        SPI.transfer(frame[i]);
-    }
-
-    // Deselect the XBee
-    digitalWrite(XBEE_SS_PIN, HIGH);
-
-    Serial.println("API frame sent");
-}
-
-void readXBeeApiFrame() {
-    // Read incoming data when the attention pin is low
-    // Select the XBee
-    digitalWrite(XBEE_SS_PIN, LOW);
-
-    // The XBee documentation is key to correctly interpreting the API frame...
-    // The frame begins with the start delimiter (0x7E) and has the length feild...
-    // The SPI.transfer() function perfoems a simultaneous reand and write.
-    bytr receivedByte = SPI.transfer(0xFF);
-
-    // Read the rest of the fram based on the length field
-    // ...
-
-    // Deselect the XBee
-    digitalWrite(XBEE_SS_PIN, HIGH);
-}
-
-// Working on other versions that are similar to this code...
-```
-- The key consideration are (1) the Logic Level Shifter, (2) the API Frame format, (3) the SPI_nATTN Pin and (4) Dedicated SPI Libtrary.
-    - The standard Arduino SPI.h library is functional but using a specialized XBee library (such as the one from Digi) can significantly simplify the process of constructing and parsing API frames. (Digi may not have an Arduino SPI library for these particular radios...)
-
+    - SCRATCH
 ### Alternate Code: Transmitting an API frame
-
-```c++
-// CODE HAS YET TO BE TESTED - CHECK SYNTAX
-
-// Arduino library
-#include <SPI.h>
-// Github: Andrew Rapp - repository: xbee-arduino
-// Used for packet handling - In API mode, the XBee 
-// module encapsulates data in structured packets, 
-// including information like sender address, API ID, 
-// data length, and payload.
-#include <XBee.h>
-
-// Define the pin for the XBee SPI nATTN line
-const int XBEE_ATTN = 2;
-
-// Create an XBee object
-XBee xbee = XBee();
-
-// Setup the XBee API frame
-Tx64Request tx = Tx64Request();
-TxStatusResponse txStatus = TxStatusResponse();
-
-void setup() {
-    Serial.begin(9600);
-    SPI.begin();
-
-    // Setup the interrupt for the XBee ATTN pin
-    pinMode(XBEE_ATTN, INPUT);
-    attachInterrupt(digitalPinTpInterrupt(XBEE_ATTN), attn_interrupt, FALLING);
-
-    // Initialize the XBee library with the SPI interface
-    xbee.setSpi(SPI);
-    Serial.println("XBee in SPI mode is ready to transmit");
-}
-
-void loop() {
-    // Example: Transmit a message to the other XBee every 5 seconds
-    if (millis() % 5000 == 0) {
-        uint8_t payload[] = {'H', 'e', 'l', 'l', 'o'};
-        // Send to broastcast address 0xFFFF
-        tx = Tx64Request(0x0000000000000FFFF, payload, sizeof(payload));
-        xbee.send(tx);
-
-        // After sending, wait for the status response from the XBee
-        if (xbee.readPacket(5000)) {
-            if (xbee.getResponse().getApiId() == TX_STATUS_RESPONSE) {
-                xbee.getResponse().getTxStatusResponse(txStatus);
-                if (txStatus.getStatus() == SUCCESS) {
-                    Serial.println("Transission successful.");
-                } else {
-                    Serial.print("Transmission failed with error code: ");
-                    Serial.println(txStatus.getStatus());
-                }
-            }
-        }
-    }
-}
-
-void attn_interrupt() {
-    // Read and process incoming packets
-    // This helps prevent SPI buffer overruns
-    xbee.readPacket();
-    // Handle the received packet here if needed
-}
-
-```
-
+    - SCRATCH
 ### Alternate Code: Receiving an API frame
-```c++
-#include <SPI.h>
-#include <XBee.h>
-
-// Define the pin for the XBee SPI_nATTN line
-const int XBee_nATTN = 2;
-
-// Create an XBee object
-XBee xbee = XBee();
-
-// Create a receive packet object
-Rx64Response rx64 = Rx64Response();
-
-void setup() {
-    Serial.begin(9600);
-    SPI.begin();
-
-    // Setup the interrupt for the XBee ATTN pin
-    pinMode(XBee_nATTN, INPUT);
-    attachInterrupt(digitalPinTpInterrupt(XBee_nATTN), attn_interrupt, FALLING);
-
-    // Initialize the XBee library with the SPI interface
-    xbee.setSpi(SPI);
-    Serial.println("XBee in SPI mode is ready to receive");
-}
-
-void loop() {
-    // Check if packet is available
-    
-
-}
-
-
-```
+    - SCRATCH
 
 ### ***include folder***
 
