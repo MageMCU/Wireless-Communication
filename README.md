@@ -1,6 +1,8 @@
 # Wireless-Communication
-- MakerFocus 10pcs NRF24L01+ 2.4GHz Wireless RF Transceiver Module Compatible with Arduino and Raspberry Pi.
-- XBee-PRO 900HP (S3B) DigiMesh, 900MHz, 250mW, Wire Antenna, 200Kbps (North America XBP9B-DMWT-002). The Digi XBee-PRO 900HP DigiMesh Kit (US/Canada XKB9-DMT-UHP) comes with three radios.
+- MakerFocus NRF24L01+ 2.4GHz Wireless RF Transceiver Module Compatible with Arduino and Raspberry Pi. (*This radio is inexpensive .*)
+  - Makerfire 4pcs NRF24L01+ Breakout Adapter with on-board 3.3V Regulator for NRF24L01+ Wireless Module.
+- XBee-PRO 900HP (S3 & S3B) DigiMesh, 900MHz, 250mW, Wire Antenna, 200Kbps (North America XBP9B-DMWT-002). 
+  - The Digi XBee-PRO 900HP DigiMesh Kit (US/Canada XKB9-DMT-UHP) comes with three radios.
 
 ## Testing Platform
 - The MCU chip **Atmega328P** is well known and the price is affordable as well as most of the robotic hardware that is described here. The Arduino Uno board comes with a removable MCU.
