@@ -1,3 +1,3 @@
 ## Click this: [***Disclaimer***](https://github.com/MageMCU/Carpenter-Software-Disclaimer/blob/main/README.md)
 
-To use any **MageMCU** repository at Github, agree to the following: ***Disclaimer***, [***Github EULA***](https://desktop.github.com/eula/), and [***Github Terms***](https://docs.github.com/en/site-policy/github-terms) applied to each of the repositories at MagerMCU here at Github.
+To use any **MageMCU** repository here at Github, agree to the following: ***Disclaimer***, [***Github EULA***](https://desktop.github.com/eula/), and [***Github Terms***](https://docs.github.com/en/site-policy/github-terms) applied to each of the MageMCU repositories.
